@@ -1,0 +1,71 @@
+Brute Force:
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& intervals) {
+        vector<vector<int>> res;
+        int m = intervals.size();
+        if(m==0)
+            return res;
+        int n = intervals[0].size();
+
+        
+        for(int i=0; i<intervals.size(); i++){
+            int tru = 0;
+            
+            for(int j=i+1; j<intervals.size(); j++){
+                
+                int a = intervals[i][0];
+                int b = intervals[i][1];
+                
+                int c = intervals[j][0];
+                int d = intervals[j][1];
+                
+                if((a>=c && a<=d) || (b>=c && b<=d) || (c>=a && c<=b) || (d>=a && d<=b)){
+                    intervals.erase(intervals.begin()+i);
+                    intervals.erase(intervals.begin()+j-1);
+                    intervals.push_back({min(a,c), max(b,d)});
+                    i--;
+                    tru = 1;
+                    break;
+                }                                            
+            }
+            if(tru==0)
+                res.push_back({intervals[i][0], intervals[i][1]});
+        }
+      return res;
+    }
+};
+
+
+
+Optimized solution: O(nlogn)
+class Solution
+
+public:
+
+yector vector<int>> merge(vector<vector<int>>& intervals) {
+
+vector<vector<int>>mergedIntervals;
+
+if(intervals.size() = 0)
+return mergedIntervals;
+
+sort(intervals.begin(), intervals.end()); 
+vecto<int> tempInterval= intervals[0];
+
+for(auto it : intervals){
+  if(it[0]<=tempInterval[1]){
+    tempInterval[1] = max(it[1],tempInterval[1]);
+    }
+    
+   else
+{
+    mergedIntervals.push_back(tempInterval);
+    tempInterval = it;
+ }
+ }
+ mergedIntervals.push_back(tempInterval);
+ return mergedIntervals;
+}
+

@@ -1,0 +1,92 @@
+Naive Approach: This involves the use of brute force where two nested loops are used. The outer loop is used to fix the starting position of the sub array, and the inner loop is used for the ending position of the sub-array and if the sum of elements is equal to zero then increase the count.
+ 
+
+Algorithm: 
+
+Consider all sub-arrays one by one and check the sum of every sub-array.
+Run two loops: the outer loop picks the starting point i and the inner loop tries all sub-arrays starting from i.
+Complexity Analysis: 
+
+Time Complexity: O(n^2) due to the use of nested loops.
+Space complexity: O(1) as no extra space is used.
+
+int maxLen(int arr[], int n) 
+{ 
+    // Initialize result 
+    int max_len = 0;  
+  
+    // Pick a starting point 
+    for (int i = 0; i < n; i++) { 
+  
+        // Initialize currr_sum for 
+        // every starting point 
+        int curr_sum = 0; 
+  
+        // try all subarrays starting with 'i' 
+        for (int j = i; j < n; j++) { 
+            curr_sum += arr[j]; 
+  
+            // If curr_sum becomes 0,  
+            // then update max_len 
+            // if required 
+            if (curr_sum == 0) 
+                max_len = max(max_len, j - i + 1); 
+        } 
+    } 
+    return max_len; 
+} 
+
+
+Efficient Approach: The brute force solution is calculating the sum of each and every sub-array and checking whether the sum is zero or not.
+Let’s now try to improve the time complexity by taking an extra space of ‘n’ length. 
+The new array will store the sum of all the elements up to that index. 
+The sum-index pair will be stored in a hash-map. A Hash map allows insertion and deletion of key-value pair in constant time.
+Therefore, the time complexity remains unaffected. 
+So, if the same value appears twice in the array, it will be guaranteed that the particular array will be a zero-sum sub-array. 
+
+
+Algorithm: 
+
+Create a extra space, an array of length n (prefix), a variable (sum) , length (max_len) and a hash map (hm) to store sum-index pair as a key-value pair
+Move along the input array from starting to the end
+For every index update the value of sum = sum + array[i]
+Check for every index, if the current sum is present in the hash map or not
+If present update the value of max_len to maximum of difference of two indices (current index and index in the hash-map) and max_len
+Else Put the value (sum) in the hash map, with the index as a key-value pair.
+Print the maximum length (max_len)
+
+int maxLen(int arr[], int n) 
+{ 
+    // Map to store the previous sums 
+    unordered_map<int, int> presum; 
+  
+    int sum = 0; // Initialize the sum of elements 
+    int max_len = 0; // Initialize result 
+  
+    // Traverse through the given array 
+    for (int i = 0; i < n; i++) { 
+        // Add current element to sum 
+        sum += arr[i]; 
+  
+        if (arr[i] == 0 && max_len == 0) 
+            max_len = 1; 
+        if (sum == 0) 
+            max_len = i + 1; 
+  
+        // Look for this sum in Hash table 
+        if (presum.find(sum) != presum.end()) { 
+            // If this sum is seen before, then update max_len 
+            max_len = max(max_len, i - presum[sum]); 
+        } 
+        else { 
+            // Else insert this sum with index in hash table 
+            presum[sum] = i; 
+        } 
+    } 
+  
+    return max_len; 
+} 
+
+Time Complexity: O(n), as use of good hashing function will allow insertion and retrieval operations in O(1) time.
+Space Complexity: O(n), for the use of extra space to store the prefix array and hashmap.
+

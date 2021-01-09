@@ -76,3 +76,58 @@ public:
         return res;
     }
 };
+
+
+Unordered_set
+Time Complexity: O (n)
+Space Complexity: O (n)
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set <int> uset (nums.begin(), nums.end());
+        int res=0;
+        for (int n: nums) {
+            if (!uset.count(n)) continue;
+            else {
+                uset.erase(n);
+                int prev=n-1, next=n+1;
+                while (uset.count(prev)) uset.erase(prev--);
+                while (uset.count(next)) uset.erase(next++);
+                res=max(res, next-prev-1);
+            }
+        }
+    return res;
+    }
+};
+
+
+Time Complexity: O(3N)
+
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        set<int> hs;
+        
+        for(auto num :nums)
+            hs.insert(num);
+        
+        int res = 0;
+        
+        for(auto num:nums){
+            if(!hs.count(num-1)){
+                int currents = 1;
+                int c = num;
+                
+                while(hs.count(c+1)){
+                    c+=1;
+                    currents+=1;
+                }
+                
+                res = max(res, currents);
+            }
+        }
+        
+        return res;
+    }
+};

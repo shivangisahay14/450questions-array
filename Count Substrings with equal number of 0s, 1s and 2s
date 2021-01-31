@@ -1,0 +1,63 @@
+Algorithm
+Declare a map.
+Initialize a pair to 0 and put it into the map with 1.
+Set zerocount, onecount, twocount, and output to 0.
+Loop from i=0 to i<n.
+Check for each character of the current substring whether it is 0, 1, and 2. Then update the count accordingly.
+Calculate the differences of pair.
+Check if the difference is not present in the map, then, add 0 to the output.
+Else, add temp’s value of map into the output.
+Add temp to to the map.
+Return output.
+
+
+Explanation
+We are given a string that has 0, 1, and 2 only. 
+Our task is to find out the total number of the substrings that have equal no of 0, 1, and 2.
+For this, we are going to use Hashing. Initialize a pair with (0, 0) as key and its value as 1 into the map, by default. 
+Calculate the difference between zerocount and onecount, and zerocount and twocount. We will be storing the value in a pair and that pair into the map. 
+If the difference of a pair already exists in the map, then simply get/retrieve the value of the current pair from the map. Then add that to the output.
+If the difference is not already present in the map. Then add 0 to the output. 
+We also need to insert the difference pair into the map and increase its frequency if it already exists in the map. 
+Else store a new entry for the difference pair with 1 as a value into the map.
+
+
+#include<bits/stdc++.h>
+using namespace std;
+struct hash_pair { 
+    template <class T1, class T2> 
+    size_t operator()(const pair<T1, T2>& p) const
+    { 
+        auto hash1 = hash<T1>{}(p.first); 
+        auto hash2 = hash<T2>{}(p.second); 
+        return hash1 ^ hash2; 
+    } 
+}; 
+int getSubString(string str)
+{
+    int n = str.length();
+    unordered_map< pair<int, int>, int, hash_pair > MAP;
+    MAP[make_pair(0, 0)] = 1;
+    int zerocount = 0, onecount = 0, twocount = 0;
+    int output = 0;
+    for (int i = 0; i < n; ++i)
+    {
+        if (str[i] == '0')
+            zerocount++;
+        else if (str[i] == '1')
+            onecount++;
+        else
+            twocount++;
+        pair<int, int> x = make_pair(zerocount - onecount,zerocount - twocount);
+        output = output + MAP[x];
+        MAP[x]++;
+    }
+    return output;
+}
+int main()
+{
+    string str = "10201012";
+    cout << getSubString(str) << endl;
+    return 0;
+}
+

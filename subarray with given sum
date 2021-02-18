@@ -1,0 +1,76 @@
+Simple Approach: A simple solution is to consider all subarrays one by one and check the sum of every subarray. 
+Following program implements the simple solution. 
+Run two loops: the outer loop picks a starting point I and the inner loop tries all subarrays starting from i.
+
+Algorithm:
+Traverse the array from start to end.
+From every index start another loop from i to the end of array to get all subarray starting from i, keep a varibale sum to calculate the sum.
+For every index in inner loop update sum = sum + array[j]
+If the sum is equal to the given sum then print the subarray.
+
+
+/* Returns true if the there is a subarray  
+of arr[] with sum equal to 'sum' otherwise  
+returns false. Also, prints the result */
+int subArraySum(int arr[], int n, int sum) 
+{ 
+    int curr_sum, i, j; 
+  
+    // Pick a starting point 
+    for (i = 0; i < n; i++) { 
+        curr_sum = arr[i]; 
+  
+        // try all subarrays starting with 'i' 
+        for (j = i + 1; j <= n; j++) { 
+            if (curr_sum == sum) { 
+                cout << "Sum found between indexes "
+                     << i << " and " << j - 1; 
+                return 1; 
+            } 
+            if (curr_sum > sum || j == n) 
+                break; 
+            curr_sum = curr_sum + arr[j]; 
+        } 
+    } 
+  
+    cout << "No subarray found"; 
+    return 0; 
+} 
+
+
+Algorithm:
+
+Create three variables, l=0, sum = 0
+Traverse the array from start to end.
+Update the variable sum by adding current element, sum = sum + array[i]
+If the sum is greater than the given sum, update the variable sum as sum = sum – array[l], and update l as, l++.
+If the sum is equal to given sum, print the subarray and break the loop.
+
+
+int sum = a[0], sp = 0, ep = 0, flag = 0;
+		while(sp < n-1 || ep < n-1)
+		{
+			if (sum < s)
+			{
+				ep++;
+				sum += a[ep];
+				if (sum == s) 
+				{flag = 1; break;}
+			}
+			else if (sum > s)
+			{
+				sum -= a[sp]; sp ++;
+				if (sum == s) 
+				{
+				flag = 1;
+				break;
+				}
+			}
+			if((ep==n-1 && sum < s )|| (sp==n-1 && sum > s))
+			    break;    
+		}
+		if (flag == 0) cout << "-1" << endl;
+		else cout << sp + 1 << " " << ep + 1 << endl;
+	}
+	return 0;
+}

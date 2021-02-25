@@ -1,0 +1,22 @@
+ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        int ptr1 = m-1;   // Last Index of array 1
+    int ptr2 = n-1;   // Last Index of array 2
+    int x = m+n-1;    // Last Index of the final array
+    
+    //[we will fill the array from backwards]
+    while(ptr1 >= 0 && ptr2 >= 0){
+        if(nums1[ptr1]>nums2[ptr2])   
+            nums1[x--] = nums1[ptr1--];
+        else            
+            nums1[x--] = nums2[ptr2--];
+    }
+    
+    // if array 2 is larger than array 1
+    while(ptr2 >= 0)         
+        nums1[x--]=nums2[ptr2--];  
+	
+        for(int i=0;i<m;i++){
+            cout<<nums1[i];
+        }
+        
+    }

@@ -1,0 +1,12 @@
+ vector<int> getRow(int rowIndex) {
+        
+        vector<int> nums = {1};
+        for(int i = 0; i < rowIndex; ++i){
+            nums.push_back(1);
+            for(int j = nums.size() - 2; j > 0; --j){
+                nums[j] += nums[j - 1];
+            }
+        }
+        return nums;
+        
+    }

@@ -1,0 +1,47 @@
+vector<int> majorityElement(vector<int>& nums) {
+        
+        int n = nums.size();
+        vector<int> answer;
+        int count1 = 0 , count2 = 0 ;
+        int first = 0 , second = 0;
+        for(int i =0 ;i < n ;i ++){
+	
+            if(nums[i] == first){
+                count1 ++;
+            }
+            else if (nums[i] == second){
+                count2++;
+            }
+            else if (count1 == 0){
+                first = nums[i];
+                count1++;
+            }
+            else if (count2 == 0){
+                second = nums[i];
+                count2++;
+            }else{
+                count1--;
+                count2--;
+            }
+        }
+        count1 =0 , count2 =0;
+        for(int num : nums){
+            if(first == num){
+                count1++;
+            }
+            else if (second == num){
+                count2++;
+            }
+        }
+        // cout<<count1<<count2;
+        if(count1 > n/3){
+            answer.push_back(first);
+        }
+        if(count2 > n/3){
+            answer.push_back(second);
+        }
+        return answer;
+        
+       
+        
+    }

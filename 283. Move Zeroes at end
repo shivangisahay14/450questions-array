@@ -1,0 +1,29 @@
+  /*  int j = 0;
+    for(int i = 0; i < nums.size(); i++)
+    {
+        if(nums[i] != 0)
+        {
+            swap(nums[i], nums[j]);
+                j++;
+        }
+    } */
+        
+        vector <int>::iterator it; 
+        int cnt=0;
+        for(it=nums.begin();it!=nums.end();it++)
+        {            
+            if(*it==0)
+            {
+                cnt++;
+                nums.erase(it);
+                it--;                     //So that Iterator doesn't move forward.
+            }
+        }
+        while(cnt>0)
+        {
+            nums.push_back(0);
+            cnt--;
+        }
+        
+        return;       
+        

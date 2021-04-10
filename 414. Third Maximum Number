@@ -1,0 +1,38 @@
+  int thirdMax(vector<int>& nums) {
+       priority_queue<int,vector<int>,greater<int>> pq;
+        
+        
+//remove duplicates and sort in jsut one step
+        set<int> s(nums.begin(), nums.end());
+        // if set has less than three values in it then ofcourse the values at the end would be the lasgest and ans as well
+        if(s.size() < 3){
+            return *s.rbegin();
+        }
+		
+        set<int>:: iterator it = s.begin();
+		//it pointing to begining of set remeber we cant use s[index] in case of set
+        advance(it, s.size() - 3);
+		//it is anvanced or moved forward to position size-3
+		//since it is a pointer so derefrence that and get the values.
+        return *it;
+       
+        
+         int size=nums.size();
+        set<int> s1;
+        sort(nums.begin(),nums.end());
+        for(int i=size-1;i>=0;i--)
+        {
+            s1.insert(nums[i]);
+            if(s1.size()==3)
+                break;
+        }
+        if(s1.size()<3)
+            return *max_element (nums.begin(),nums.end());
+        else 
+            return (*(s1.begin()));
+        
+       
+	
+        
+        
+    }

@@ -1,0 +1,30 @@
+int search(string pat, string txt) {
+	    
+	    int n=txt.size();
+	    int k=pat.size();
+	    int count=0;
+	    
+	    vector<int>vs(26,0);
+	    vector<int>vp(26,0);
+	    
+	    for(int i=0;i<k;i++){
+	        vs[txt[i]-'a']++;
+	        vp[pat[i]-'a']++;
+	    }
+	    if(vs==vp){
+	        count++;
+	    }
+	    
+	    for(int i=k;i<n;i++){
+	        vs[txt[i-k]-'a']--;
+	        vs[txt[i]-'a']++;
+	        
+	        if(vs==vp){
+	        count++;
+	    }
+	    }
+	    
+	    
+	    return count;
+	    
+	    }

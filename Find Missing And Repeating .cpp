@@ -14,3 +14,20 @@ static int ans[2];
         ans[1]=missing;
         
         return ans;
+
+Swap Sort:
+int i=0;
+        int *ans=new int(2);
+        while(i<n){
+            if(arr[i]!=arr[arr[i]-1]){
+                swap(arr[i],arr[arr[i]-1]);
+            }else i++;
+        }
+        for(int i=0;i<n;i++){
+            if(arr[i]!=i+1){
+                ans[0]=arr[i];
+                ans[1]=i+1;
+            }
+        }
+        return ans;
+        
